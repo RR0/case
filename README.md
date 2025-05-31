@@ -13,8 +13,8 @@ npm install
 ```js
 import { RR0Catalog } from "@rr0/case"
 
-const catalog = new RR0Catalog("https://rr0.org")
-await catalog.init("casesDirs.json", "peopleDirs.json")
+const catalog = new RR0Catalog()
+await catalog.init()
 
 /** @type RR0Case */
 const roswellCase = catalog.casesFiles.find(url => url.includes("/Roswell/"))

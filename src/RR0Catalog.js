@@ -26,13 +26,14 @@ export class RR0Catalog {
   }
 
   /**
+   * Fetch the case and people directories.
    *
-   * @param {string} casesDirsUrl
-   * @param {string} peopleDirsUrl
+   * @param {string} [casesDirsFile] The name of the cases directories JSON file to fetch.
+   * @param {string} [peopleDirsFile] The name of the people directories JSON file to fetch.
    */
-  async init(casesDirsUrl, peopleDirsUrl) {
-    this.casesFiles = /** @type {string[]} */ await this.fetchArray(new URL(casesDirsUrl, this.baseUrl), "/case.json")
-    this.peopleFiles = /** @type {string[]} */ await this.fetchArray(new URL(peopleDirsUrl, this.baseUrl), "/people.json")
+  async init(casesDirsFile = "casesDirs.json", peopleDirsFile = "peopleDirs.json") {
+    this.casesFiles = /** @type {string[]} */ await this.fetchArray(new URL(casesDirsFile, this.baseUrl), "/case.json")
+    this.peopleFiles = /** @type {string[]} */ await this.fetchArray(new URL(peopleDirsFile, this.baseUrl), "/people.json")
   }
 
   /**
@@ -59,9 +60,10 @@ export class RR0Catalog {
   }
 
   /**
-   * @protected
-   * @param {string} caseUrl
-   * @return Promise<RR0Case>
+   * Fetch a case JSON URL.
+   *
+   * @param {string} caseUrl The URL of the JSON file to fetch.
+   * @return {Promise<RR0Case>}
    */
   async fetchCase(caseUrl) {
     const pickedCase = await this.fetchJson(new URL(caseUrl, this.baseUrl))
@@ -76,8 +78,9 @@ export class RR0Catalog {
   }
 
   /**
-   * @protected
-   * @param peopleUrl
+   * Fetch a people JSON URL.
+   *
+   * @param {string} peopleUrl The URL of the JSON file to fetch.
    * @return {Promise<T>}
    */
   async fetchPeople(peopleUrl) {
