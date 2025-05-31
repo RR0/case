@@ -1,13 +1,13 @@
 {
   "include": [
-    "src/**/*.js"
+    "lib/**/*.js"
   ],
   "exclude": [
     "**/*.config.js",
     "test/**"
   ],
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDir": "lib",
     "target": "ES2015",
     "module": "NodeNext",
     "moduleResolution": "nodenext",
