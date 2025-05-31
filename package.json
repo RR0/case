@@ -1,14 +1,41 @@
 {
   "name": "@rr0/case",
-  "description": "RR0 Case API",
-  "version": "0.1.0",
   "type": "module",
+  "author": "Jérôme Beau <rr0@rr0.org> (https://rr0.org)",
+  "version": "0.1.0",
+  "description": "RR0 Case API",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/RR0/case#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RR0/case.git"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "prebuild": "npm install",
+    "build": "vite build --mode production && npm run types",
+    "test": "node --test src",
+    "types": "npx --yes tsc --skipLibCheck --declaration --allowJs --emitDeclarationOnly --outDir dist",
+    "prepublishOnly": "npm run test && npm run build"
   },
   "devDependencies": {
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "typescript": "^5.8.3"
+  },
+  "keywords": [
+    "rr0",
+    "ufo",
+    "case",
+    "people"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

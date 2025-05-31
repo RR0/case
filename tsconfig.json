@@ -1,0 +1,20 @@
+{
+  "include": [
+    "src/**/*.js"
+  ],
+  "exclude": [
+    "**/*.config.js",
+    "test/**"
+  ],
+  "compilerOptions": {
+    "rootDir": "src",
+    "target": "ES2015",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "allowJs": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "declarationMap": true
+  }
+}

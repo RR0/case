@@ -1,23 +1,25 @@
 export class RR0Catalog {
   /**
+   * @readonly
    * @member {string[]}
    */
-  casesFiles
+  casesFiles = []
 
   /**
+   * @readonly
    * @member {string[]}
    */
-  peopleFiles
+  peopleFiles = []
 
   /**
    * @readonly
    * @member {URL}
    */
-  baseUrl
+  baseUrl = new URL("https://rr0.org")
 
   /**
    *
-   * @param {URL} baseUrl
+   * @param {URL} [baseUrl] The URL to fetch the case and people directories from.
    */
   constructor(baseUrl) {
     this.baseUrl = baseUrl
@@ -27,15 +29,14 @@ export class RR0Catalog {
    *
    * @param {string} casesDirsUrl
    * @param {string} peopleDirsUrl
-   * @param {number} caseIndex
    */
-  async init(casesDirsUrl, peopleDirsUrl, caseIndex) {
+  async init(casesDirsUrl, peopleDirsUrl) {
     this.casesFiles = /** @type {string[]} */ await this.fetchArray(new URL(casesDirsUrl, this.baseUrl), "/case.json")
     this.peopleFiles = /** @type {string[]} */ await this.fetchArray(new URL(peopleDirsUrl, this.baseUrl), "/people.json")
   }
 
   /**
-   *
+   * @protected
    * @param {URL} url
    * @param {string} suffix
    * @template T
@@ -47,6 +48,7 @@ export class RR0Catalog {
   }
 
   /**
+   * @protected
    * @param {URL} url
    * @template T
    * @return {Promise<T>}
@@ -57,11 +59,12 @@ export class RR0Catalog {
   }
 
   /**
+   * @protected
    * @param {string} caseUrl
-   * @return Promise<Case>
+   * @return Promise<RR0Case>
    */
   async fetchCase(caseUrl) {
-    const pickedCase = this.pickedCase = await this.fetchJson(new URL(caseUrl, this.baseUrl))
+    const pickedCase = await this.fetchJson(new URL(caseUrl, this.baseUrl))
     const caseFile = "/case.json"
     pickedCase.url = new URL(caseUrl.replace(caseFile, "/index.html"), this.baseUrl)
     if (!navigator.language.startsWith("fr") || !pickedCase.title) {
@@ -72,6 +75,11 @@ export class RR0Catalog {
     return pickedCase
   }
 
+  /**
+   * @protected
+   * @param peopleUrl
+   * @return {Promise<T>}
+   */
   async fetchPeople(peopleUrl) {
     const pickedPeople = await this.fetchJson(new URL(peopleUrl, this.baseUrl))
     const peopleFile = "/people.json"
